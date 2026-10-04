@@ -92,7 +92,8 @@ def test_handshake_rejects_genesis_mismatch(cluster):
     r = a.post("/api/v1/peers", json={"address": b.addr})
     assert r.status_code == 502
     assert a.get("/api/v1/peers")["peers"] == [] and b.get("/api/v1/peers")["peers"] == []
-    r = httpx.post(f"{a.url}/p2p/handshake", json={**b.get("/p2p/status"), "addr": b.addr})
+    hello = {k: v for k, v in b.get("/p2p/status").items() if k != "tip_hash"}   # status has one extra field
+    r = httpx.post(f"{a.url}/p2p/handshake", json={**hello, "addr": b.addr})
     assert r.status_code == 400 and r.json()["error"]["code"] == "GENESIS_MISMATCH"
 
 
