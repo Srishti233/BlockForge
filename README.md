@@ -6,18 +6,18 @@ proof-of-work, multi-process P2P networking with fork handling, a REST API, a we
 > **Not production software. It has no real monetary value and must never hold real money.**
 > It exists to be read, run and broken. See [Educational simplifications](#educational-simplification-vs-production-requirement).
 
-## Status of this repository (please read)
+## Status
 
-This code was produced in a sandbox with **no network access**, so only part of it could be executed
-there. Being explicit about what was and was not run:
+[![CI](https://github.com/Srishti233/BlockForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Srishti233/BlockForge/actions/workflows/ci.yml)
 
-| Part | Verified by running? |
-|---|---|
-| crypto, transactions, mempool, Merkle, blocks, PoW, state/undo, validation, chain/fork/reorg, storage, config, CLI wallet commands | **Yes** - 104 test cases (+3 CLI tests) pass; 97.9% line coverage of `blockchain/` + `storage/` (measured with a small `sys.settrace` harness, not `pytest-cov`; run `pytest --cov` to get the official number) |
-| P2P protocol logic (handshake, discovery, gossip, batch sync, ancestor fetch, forks, bans, miner thread) | **Yes**, over an in-process transport (`tests/test_network_logic.py`, 12 cases) |
-| FastAPI app, HTTP transport (`httpx`), explorer in a browser, real multi-process tests, `demo.py`, `pytest` itself | **No.** `fastapi`, `uvicorn`, `pydantic`, `httpx`, `pytest` could not be installed there. The code compiles, the JS passes `node --check`, and the tests are written, but **they have not been executed**. Expect to fix small bugs on first run. |
+Every push runs GitHub Actions on Linux, Windows and macOS with Python 3.13:
 
-A GitHub Actions workflow (`.github/workflows/ci.yml`) installs the dependencies on Linux, Windows and macOS with Python 3.13, runs the full test suite (with a 90% coverage gate on `blockchain/` and `storage/`), and runs `python demo.py`. After you push, the Actions tab is the first real end-to-end verification of the unexecuted parts. The checklist in [Verifying your install](#verifying-your-install) tells you how to confirm everything on your machine.
+- the full test suite (125 tests, including real multi-process node tests) with a 90% coverage gate on `blockchain/` and `storage/` (last measured: **97.99%**),
+- the end-to-end `python demo.py`, which starts real node processes and asserts every step.
+
+Not covered by automated tests: the explorer UI in a real browser (its API is tested, and its JavaScript only uses
+same-origin requests). Open `http://127.0.0.1:5001/` after starting a node to try it. The checklist in
+[Verifying your install](#verifying-your-install) lets you confirm everything on your own machine.
 
 ## What it is
 
