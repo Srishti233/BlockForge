@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockForge Explorer</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="#/">&#9874; BlockForge</a>
+  <nav>
+    <a href="#/">Dashboard</a>
+    <a href="#/blocks">Blocks</a>
+    <a href="#/network">Network</a>
+    <a href="/docs">API docs</a>
+  </nav>
+  <form id="search" autocomplete="off">
+    <input id="q" type="text" placeholder="height / block hash / tx id / address" aria-label="Search">
+    <button type="submit">Search</button>
+  </form>
+</header>
+<p class="banner">Educational blockchain &mdash; no real monetary value.</p>
+<main id="app"><p>Loading&hellip;</p></main>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blockforge"
+version = "0.1.0"
+description = "BlockForge: a small educational blockchain (not for real money)"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110", "uvicorn>=0.27", "pydantic>=2.5",
+  "cryptography>=42", "httpx>=0.27",
+]
+
+[project.scripts]
+blockforge = "blockforge.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["blockforge*"]
+
+[tool.setuptools.package-data]
+blockforge = ["explorer/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

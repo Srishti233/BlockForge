@@ -1,0 +1,27 @@
+# BlockForge example configuration.
+# Precedence: this file < BLOCKFORGE_* environment variables < CLI flags.
+# Every node on one network MUST share chain_id, difficulty_bits, genesis_timestamp
+# and genesis_allocations, otherwise genesis hashes differ and handshakes are rejected.
+
+host = "127.0.0.1"
+port = 5001
+peers = []                  # e.g. ["127.0.0.1:5001"]
+difficulty_bits = 12        # fixed difficulty; target = 2**(256 - bits)
+block_reward = 50           # integer, smallest unit
+max_tx_per_block = 100      # excluding the coinbase
+max_block_bytes = 1000000
+chain_id = "blockforge-dev"
+genesis_timestamp = 1700000000
+data_dir = "data"
+# db_path = "data/node-5001.db"   # default: <data_dir>/node-<port>.db
+max_reorg_depth = 100
+log_level = "INFO"          # DEBUG | INFO | WARNING | ERROR
+mempool_max = 5000
+max_request_bytes = 2000000
+rate_limit_per_sec = 50.0
+health_check_interval = 5.0
+miner_address = ""          # set to an address to mine automatically
+
+# Fixed genesis allocations: address = amount (must be identical on every node)
+[genesis_allocations]
+# bf0123456789abcdef0123456789abcdef01234567 = 1000
